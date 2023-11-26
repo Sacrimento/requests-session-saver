@@ -1,0 +1,85 @@
+[build-system]
+requires = ["setuptools>=61.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "requests_session_saver"
+authors = [{name = "Augustin Bouverot", email = "augustin.bouverot@gmail.com"}]
+license = {text = "MIT"}
+description = "An utility module allowing to dump requests sessions HTTP requests and responses"
+keywords = [
+    "requests",
+    "session",
+    "dump",
+    "save"
+]
+readme = "README.md"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+requires-python = ">=3.7"
+dependencies = ["requests >= 2.0.0"]
+dynamic = ["version"]
+
+[project.urls]
+Homepage = "https://github.com/Sacrimento/requests-session-saver"
+"Change Log" = "https://github.com/Sacrimento/requests-session-saver#change-log"
+
+
+# Mypy
+[tool.mypy]
+files = requests_session_saver
+
+ignore_missing_imports = false
+follow_imports = "normal"
+
+disallow_any_generics = true
+disallow_subclassing_any = true
+
+disallow_untyped_calls = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+
+no_implicit_optional = true
+strict_optional = true
+
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_return_any = true
+warn_unreachable = true
+
+ignore_errors = false
+
+strict_equality = true
+
+show_error_context = true
+show_error_codes = true
+
+warn_unused_configs = true
+
+
+# Ruff
+[tool.ruff]
+target-version = "py37"
+line-length = 88
+select = ["ALL"]
+
+[tool.ruff.isort]
+force-sort-within-sections = true
+
