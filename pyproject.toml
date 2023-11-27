@@ -30,7 +30,7 @@ classifiers = [
     "Programming Language :: Python :: 3 :: Only",
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
-requires-python = ">=3.7"
+requires-python = ">=3.8"
 dependencies = ["requests >= 2.0.0"]
 dynamic = ["version"]
 
@@ -41,7 +41,7 @@ Homepage = "https://github.com/Sacrimento/requests-session-saver"
 
 # Mypy
 [tool.mypy]
-files = requests_session_saver
+files = "requests_session_saver"
 
 ignore_missing_imports = false
 follow_imports = "normal"
@@ -76,9 +76,17 @@ warn_unused_configs = true
 
 # Ruff
 [tool.ruff]
-target-version = "py37"
+target-version = "py38"
 line-length = 88
 select = ["ALL"]
+
+ignore = [
+    "ANN",
+    "D",
+    "EM102",
+    "FA100",
+    "TRY003",
+]
 
 [tool.ruff.isort]
 force-sort-within-sections = true
