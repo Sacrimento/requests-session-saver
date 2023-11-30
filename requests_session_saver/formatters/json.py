@@ -1,7 +1,9 @@
 import requests
 
 
-class RawExporter:
+class JsonFormatter:
+    file_extension = "json"
+
     def export_request(self, request: requests.PreparedRequest) -> str:
         return ""
 
