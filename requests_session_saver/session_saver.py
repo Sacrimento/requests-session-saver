@@ -1,6 +1,6 @@
 from pathlib import Path
 import tempfile
-from typing import Type, Union
+from typing import Tuple, Type, Union
 from urllib.parse import urlparse
 
 import requests
@@ -52,20 +52,25 @@ class SessionSaver:
 
         return formatter()
 
+    def _get_file_name(self, request: requests.PreparedRequest) -> Tuple[str, str]:
+        req_path = str(urlparse(request.url).path)
+
+        req_info = f"{request.method}_{req_path.replace('/', '_')}"
+        ext = getattr(self.formatter, "file_extension", "")
+        if ext:
+            ext = "." + ext
+
+        return (
+            f"{self.req_count}_req__{req_info}{ext}",
+            f"{self.req_count}_resp__{req_info}.{ext}",
+        )
+
     def save(self, response: requests.Response) -> None:
         self.req_count += 1
 
-        req_path = str(urlparse(response.request.url).path)
+        req_fpath, resp_fpath = self._get_file_name(response.request)
 
-        if req_path == "/":
-            req_info = "TODO"  # TODO
-        else:
-            req_info = f"{response.request.method}{req_path.replace('/', '_')}"
-
-        req_fn = f"{self.req_count}_req__{req_info}.{self.formatter.file_extension}"
-        resp_fn = f"{self.req_count}_resp__{req_info}.{self.formatter.file_extension}"
-
-        Path(self.dir / resp_fn).write_text(self.formatter.export_response(response))
-        Path(self.dir / req_fn).write_text(
-            self.formatter.export_request(response.request),
+        Path(self.dir / req_fpath).write_text(
+            self.formatter.format_request(response.request),
         )
+        Path(self.dir / resp_fpath).write_text(self.formatter.format_response(response))
